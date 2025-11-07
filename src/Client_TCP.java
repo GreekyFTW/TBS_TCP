@@ -11,12 +11,13 @@ public class Client_TCP {
 
     static String IP = "167.99.24.91";
     static String PORT = "2018";
+
+    //Timeout useless for now
     static int TIMEOUT = 10000;
 
     static byte[] bytes = new byte[4096];
 
     //flags are useless for now
-
     static char StartFlag = 2;
     static char EndFlag = 3;
 
@@ -63,6 +64,7 @@ public class Client_TCP {
 
         System.out.println("Fixed String: " + FixedString);
 
+
         // Removing markers
         String string =  StringBetweenMarkers(FixedString, StartFlag, EndFlag).
                 replaceAll("S","").
@@ -79,7 +81,6 @@ public class Client_TCP {
                 .map(s -> Character.toString((char)Integer.parseInt(s, 2)))
                 .collect(Collectors.joining())
         );
-
 
         //Close the socket why not
         socket.close();
@@ -107,7 +108,8 @@ public class Client_TCP {
 
     //flags are useless for now
     public static String StringBetweenMarkers (String string , char flag1, char flag2) {
-        String string1 = "01000110 01100001 01101001 01101100 01100101 01100100 00100000 01110100 01101111 00100000 01100111 01100101 01110100 00100000 01110000 01101111 01101001 01101110 01110100 01110011 ";
+        //String string1 = "S0100011001100001011010010110110001100101011001000010000001110100011011110010000001100111011001010111010000100000011100000110111101101001011011100111010001110011E";
+        String string1 = "";
 
         int startIndex = string.indexOf('S');
         int endIndex = string.indexOf('E', startIndex + 1);
@@ -116,7 +118,10 @@ public class Client_TCP {
 
             string1 = string.substring(startIndex + 1, endIndex);
 
-        }
+        }else System.out.printf("Failed to find START-END points \n StartIndex : %d \n EndIndex : %d \n",startIndex,endIndex);
+
+
+
         return string1;
     }
 
