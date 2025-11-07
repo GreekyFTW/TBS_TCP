@@ -7,6 +7,10 @@ import java.net.Socket;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ Made with love by greek
+*/
+
 public class Client_TCP {
 
     static String IP = "167.99.24.91";
